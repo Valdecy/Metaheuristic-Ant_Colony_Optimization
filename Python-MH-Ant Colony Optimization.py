@@ -19,7 +19,7 @@ import os
 
 # Function: Probability Matrix 
 def city_probability (attractiveness, thau, city = 0, alpha = 1, beta = 2, city_list = []):
-    probability = pd.DataFrame(0, index = Xdata.index, columns = ['atraction','probability','cumulative_probability'])
+    probability = pd.DataFrame(0, index = attractiveness.index, columns = ['atraction','probability','cumulative_probability'])
     for i in range(0, probability.shape[0]):
         if (i+1 not in city_list):
             print(i)
