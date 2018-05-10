@@ -50,7 +50,7 @@ def city_selection(probability_matrix, city_list = []):
     return city
 
 # Function: Update Thau
-def update_thau(Xdata, thau, decay = 0.5, accumulate = 0, city_list = [1,2,1]):
+def update_thau(Xdata, thau, decay = 0.5, accumulate = 0, city_list = []):
     if (accumulate == 0):
         thau = thau*decay
     distance = 0
