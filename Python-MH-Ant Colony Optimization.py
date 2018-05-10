@@ -22,7 +22,6 @@ def city_probability (attractiveness, thau, city = 0, alpha = 1, beta = 2, city_
     probability = pd.DataFrame(0, index = attractiveness.index, columns = ['atraction','probability','cumulative_probability'])
     for i in range(0, probability.shape[0]):
         if (i+1 not in city_list):
-            print(i)
             probability.iloc[i, 0] = (thau.iloc[i, city]**alpha)*(attractiveness.iloc[i, city]**beta)
     for i in range(0, probability.shape[0]):
         if (i+1 not in city_list and probability['atraction'].sum() != 0):
