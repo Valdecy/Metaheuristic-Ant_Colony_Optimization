@@ -94,8 +94,8 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
             city_list.append(initial)
             
             for i in range(0, Xdata.shape[0] - 1):
-                probability  = city_probability(h, thau, city = i, alpha = alpha, beta = beta, city_list = city_list)
-                path_point = city_selection(probability, city_list = city_list)
+                probability = city_probability(h, thau, city = i, alpha = alpha, beta = beta, city_list = city_list)
+                path_point  = city_selection(probability, city_list = city_list)
                 city_list.append(path_point)
             city_list.append(city_list[0])
             thau, path_distance = update_thau(Xdata, thau, decay = decay, accumulate = ant, city_list = city_list)
