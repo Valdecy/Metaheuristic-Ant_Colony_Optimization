@@ -15,7 +15,6 @@
 import pandas as pd
 import numpy  as np
 import math
-#import random
 import os
 
 # Function: Probability Matrix 
@@ -42,8 +41,6 @@ def city_probability (attractiveness, thau, city = 0, alpha = 1, beta = 2, city_
 # Function: Select Next City
 def city_selection(probability_matrix, city_list = []):
     random = int.from_bytes(os.urandom(8), byteorder = "big") / ((1 << 64) - 1)
-    #random = random.uniform(0, 1)
-    #print(random)
     city = 0
     for i in range(0, probability_matrix.shape[0]):
         if (random <= probability_matrix.iloc[i, 2] and i+1 not in city_list):
@@ -75,6 +72,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     h = pd.DataFrame(np.nan, index = Xdata.index, columns = list(Xdata.columns.values))
     distance = Xdata.values.sum()
     best_routes = []
+    
     # h matrix 
     for i in range(0, Xdata.shape[0]):
         for j in range(0, Xdata.shape[1]):
@@ -96,7 +94,6 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
             city_list.append(initial)
             
             for i in range(0, Xdata.shape[0] - 1):
-                #h_iterations = city_processing(h_iterations, city_list[i]-1)
                 probability  = city_probability(h, thau, city = i, alpha = alpha, beta = beta, city_list = city_list)
                 path_point = city_selection(probability, city_list = city_list)
                 city_list.append(path_point)
@@ -113,6 +110,5 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
 
 df = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset.txt', sep = '\t')
 X = df
-Xdata = df
 
 ant_colony_optimization(X, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5)
