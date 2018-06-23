@@ -67,7 +67,6 @@ def update_thau(Xdata, thau, decay = 0.5, accumulate = 0, city_list = [1,2,1]):
         
     return thau, distance
 
-# Function: 2_opt
 def local_search_2_opt(Xdata, city_list, iterations = 1000):
     
     distance = 0
@@ -80,14 +79,16 @@ def local_search_2_opt(Xdata, city_list, iterations = 1000):
         n = (len(city_list[0]) - 2)/2
 
     while (count < iterations):
-        opt_1 = randint(1, n)
+        opt_1 = randint(0, n)
         opt_2 = randint(n + 1, len(city_list[0]) - 2)
         best_route = copy.deepcopy(city_list)
         opt_1_value = copy.deepcopy(city_list[0][opt_1])
         opt_2_value = copy.deepcopy(city_list[0][opt_2])
         best_route[0][opt_1] = opt_2_value 
         best_route[0][opt_2] = opt_1_value 
-             
+        if(opt_1 == 0):
+           best_route[0][-1]  = best_route[0][0]
+           
         for i in range(0, len(city_list[0])-1):
             j = i + 1
             distance = distance + Xdata.iloc[best_route[0][i]-1, best_route[0][j]-1]
@@ -148,7 +149,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     if (opt_2 == True):
         for i in range(0, 10):
             print("2-opt Improvement", i, " of ", 10, " distance = ", best_routes)
-            best_routes = local_search_2_opt(X, city_list = best_routes, iterations = 1000)
+            best_routes = local_search_2_opt(X, city_list = best_routes, iterations = 10000)
     
     print(best_routes)
     return  best_routes
