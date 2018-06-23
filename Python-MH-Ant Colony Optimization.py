@@ -123,7 +123,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     count = 0
     
     while (count <= iterations):
-        print("Iteration = ", count, " distance = ", best_routes[-1])
+        print("Iteration = ", count, " solution = ", best_routes[-1])
         if (count == 0):
             thau = pd.DataFrame(1, index = Xdata.index, columns = list(Xdata.columns.values))
         
@@ -148,7 +148,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     best_routes = best_routes[-1]
     if (opt_2 == True):
         for i in range(0, 10):
-            print("2-opt Improvement", i, " of ", 10, " distance = ", best_routes)
+            print("2-opt Improvement", i, " of ", 10, " solution = ", best_routes)
             best_routes = local_search_2_opt(X, city_list = best_routes, iterations = 10000)
     
     print(best_routes)
