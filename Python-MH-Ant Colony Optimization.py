@@ -16,7 +16,6 @@ import pandas as pd
 import numpy  as np
 import math
 import copy
-from random import randint
 import os
 
 # Function: Probability Matrix 
@@ -67,41 +66,43 @@ def update_thau(Xdata, thau, decay = 0.5, accumulate = 0, city_list = [1,2,1]):
         
     return thau, distance
 
-def local_search_2_opt(Xdata, city_list, iterations = 1000):
+# Function: 2_opt
+def local_search_2_opt(Xdata, city_list):
     
     distance = 0
     best_route = copy.deepcopy(city_list)
     n = 0
-    count = 0
+    #count = 0
     if ((len(city_list[0]) - 1) % 2 == 0):
-        n = len(city_list[0])/2
+        n = int(len(city_list[0])/2)
     else:
-        n = (len(city_list[0]) - 2)/2
-
-    while (count < iterations):
-        opt_1 = randint(0, n)
-        opt_2 = randint(n + 1, len(city_list[0]) - 2)
-        best_route = copy.deepcopy(city_list)
+        n = int((len(city_list[0]) - 2)/2)
+        
+    for i in range(0, n):
+        opt_1 = int(i)
         opt_1_value = copy.deepcopy(city_list[0][opt_1])
-        opt_2_value = copy.deepcopy(city_list[0][opt_2])
-        best_route[0][opt_1] = opt_2_value 
-        best_route[0][opt_2] = opt_1_value 
-        if(opt_1 == 0):
-           best_route[0][-1]  = best_route[0][0]
-           
-        for i in range(0, len(city_list[0])-1):
-            j = i + 1
-            distance = distance + Xdata.iloc[best_route[0][i]-1, best_route[0][j]-1]
         
-        best_route[1] = distance
-        
-        if (distance < city_list[1]):
-            city_list[1] = best_route[1]
-            for j in range(0, len(city_list[0])): 
-                city_list[0][j] = best_route[0][j]
-        
-        count = count + 1
-        distance = 0
+        for j in range(n + 1, len(city_list[0]) - 2):
+            opt_2 = int(j)
+            opt_2_value = copy.deepcopy(city_list[0][opt_2])
+            best_route[0][opt_1] = opt_2_value 
+            best_route[0][opt_2] = opt_1_value 
+            
+            if(opt_1 == 0):
+               best_route[0][-1]  = best_route[0][0]
+               
+            for i in range(0, len(city_list[0])-1):
+                j = i + 1
+                distance = distance + Xdata.iloc[best_route[0][i]-1, best_route[0][j]-1]
+            
+            best_route[1] = distance
+            
+            if (distance < city_list[1]):
+                city_list[1] = best_route[1]
+                for j in range(0, len(city_list[0])): 
+                    city_list[0][j] = best_route[0][j]
+            distance = 0
+            best_route = copy.deepcopy(city_list)
         
     return city_list
 
@@ -149,7 +150,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     if (opt_2 == True):
         for i in range(0, 10):
             print("2-opt Improvement", i, " of ", 10, " solution = ", best_routes)
-            best_routes = local_search_2_opt(X, city_list = best_routes, iterations = 10000)
+            best_routes = local_search_2_opt(X, city_list = best_routes)
     
     print(best_routes)
     return  best_routes
