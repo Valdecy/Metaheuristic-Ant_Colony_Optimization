@@ -72,7 +72,6 @@ def local_search_2_opt(Xdata, city_list):
     distance = 0
     best_route = copy.deepcopy(city_list)
     n = 0
-    #count = 0
     if ((len(city_list[0]) - 1) % 2 == 0):
         n = int(len(city_list[0])/2)
     else:
@@ -80,8 +79,7 @@ def local_search_2_opt(Xdata, city_list):
         
     for i in range(0, n):
         opt_1 = int(i)
-        opt_1_value = copy.deepcopy(city_list[0][opt_1])
-        
+        opt_1_value = copy.deepcopy(city_list[0][opt_1])       
         for j in range(n + 1, len(city_list[0]) - 2):
             opt_2 = int(j)
             opt_2_value = copy.deepcopy(city_list[0][opt_2])
@@ -91,9 +89,9 @@ def local_search_2_opt(Xdata, city_list):
             if(opt_1 == 0):
                best_route[0][-1]  = best_route[0][0]
                
-            for i in range(0, len(city_list[0])-1):
-                j = i + 1
-                distance = distance + Xdata.iloc[best_route[0][i]-1, best_route[0][j]-1]
+            for k in range(0, len(city_list[0])-1):
+                m = i + 1
+                distance = distance + Xdata.iloc[best_route[0][k]-1, best_route[0][m]-1]
             
             best_route[1] = distance
             
