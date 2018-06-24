@@ -90,7 +90,7 @@ def local_search_2_opt(Xdata, city_list):
                best_route[0][-1]  = best_route[0][0]
                
             for k in range(0, len(city_list[0])-1):
-                m = i + 1
+                m = k + 1
                 distance = distance + Xdata.iloc[best_route[0][k]-1, best_route[0][m]-1]
             
             best_route[1] = distance
