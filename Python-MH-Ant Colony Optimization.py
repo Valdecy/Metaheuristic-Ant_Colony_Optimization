@@ -70,37 +70,32 @@ def update_thau(Xdata, thau, decay = 0.5, accumulate = 0, city_list = [1,2,1]):
 def local_search_2_opt(Xdata, city_list):
     
     distance = 0
-    best_route = copy.deepcopy(city_list)
-    n = 0
-    if ((len(city_list[0]) - 1) % 2 == 0):
-        n = int(len(city_list[0])/2)
-    else:
-        n = int((len(city_list[0]) - 2)/2)
-        
-    for i in range(0, n):
+    best_route = copy.deepcopy(city_list)       
+    for i in range(0, len(city_list[0]) - 1):
         opt_1 = int(i)
-        opt_1_value = copy.deepcopy(city_list[0][opt_1])       
-        for j in range(n + 1, len(city_list[0]) - 2):
-            opt_2 = int(j)
-            opt_2_value = copy.deepcopy(city_list[0][opt_2])
-            best_route[0][opt_1] = opt_2_value 
-            best_route[0][opt_2] = opt_1_value 
-            
-            if(opt_1 == 0):
-               best_route[0][-1]  = best_route[0][0]
-               
-            for k in range(0, len(city_list[0])-1):
-                m = k + 1
-                distance = distance + Xdata.iloc[best_route[0][k]-1, best_route[0][m]-1]
-            
-            best_route[1] = distance
-            
-            if (distance < city_list[1]):
-                city_list[1] = best_route[1]
-                for j in range(0, len(city_list[0])): 
-                    city_list[0][j] = best_route[0][j]
-            distance = 0
-            best_route = copy.deepcopy(city_list)
+        opt_2 = int(i + 1)
+        
+        opt_1_value = copy.deepcopy(city_list[0][opt_1])
+        opt_2_value = copy.deepcopy(city_list[0][opt_2])
+        
+        best_route[0][opt_1] = opt_2_value
+        best_route[0][opt_2] = opt_1_value 
+        
+        if(opt_1 == 0):
+           best_route[0][-1]  = best_route[0][0]
+           
+        for k in range(0, len(city_list[0])-1):
+            m = k + 1
+            distance = distance + Xdata.iloc[best_route[0][k]-1, best_route[0][m]-1]
+        
+        best_route[1] = distance
+        
+        if (distance < city_list[1]):
+            city_list[1] = copy.deepcopy(best_route[1])
+            for j in range(0, len(city_list[0])): 
+                city_list[0][j] = best_route[0][j]
+        distance = 0
+        best_route = copy.deepcopy(city_list)
         
     return city_list
 
