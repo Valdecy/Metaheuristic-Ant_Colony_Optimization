@@ -146,7 +146,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
     best_routes = best_routes[-1]
     if (opt_2 == True):
         for i in range(0, 25):
-            print("2-opt Improvement", i, " of ", 25, " solution = ", best_routes)
+            print("2-opt Improvement", i + 1, " of ", 25, " solution = ", best_routes)
             best_routes = local_search_2_opt(Xdata, city_list = best_routes)
     
     print(best_routes)
