@@ -97,6 +97,7 @@ def plot_tour_distance_matrix (Xdata, city_list):
             xy.iloc[i, 0] = coordinates[city_list[0][0]-1, 0]
             xy.iloc[i, 1] = coordinates[city_list[0][0]-1, 1]
     plt.plot(xy.iloc[:,0], xy.iloc[:,1], marker = 's', alpha = 1, markersize = 7, color = 'black')
+    plt.plot(xy.iloc[0,0], xy.iloc[0,1], marker = 's', alpha = 1, markersize = 7, color = 'red')
     return
 
 # ACO Function
