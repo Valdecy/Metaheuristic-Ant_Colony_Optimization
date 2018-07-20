@@ -87,7 +87,7 @@ def local_search_2_opt(Xdata, city_list):
 # Function: Tour Plot
 def plot_tour_distance_matrix (Xdata, city_list):
     mds = manifold.MDS(n_components = 2, dissimilarity = "precomputed", random_state = 6)
-    coordinates = (mds.fit(X)).embedding_
+    coordinates = (mds.fit(Xdata)).embedding_
     xy = pd.DataFrame(np.zeros((len(city_list[0]), 2)))
     for i in range(0, len(city_list[0])):
         if (i < len(city_list[0])):
