@@ -132,7 +132,6 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
                     path_point = [value for value in list_1 if value not in city_list][0]
                 city_list.append(path_point)
             city_list.append(city_list[0])
-            #city_list = local_search_2_opt(Xdata, city_list = [city_list, 100000])[0]
             thau, path_distance = update_thau(Xdata, thau, decay = decay, accumulate = ant, city_list = city_list)
             if (path_distance < distance):
                 best_routes.append([city_list, path_distance])
