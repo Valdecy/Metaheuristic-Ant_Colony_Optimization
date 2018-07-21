@@ -155,6 +155,10 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
 
 ######################## Part 1 - Usage ####################################
 
-X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-03.txt', sep = '\t') #17 cities = 2085
+X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-03.txt', sep = '\t') #17 cities = 1923.9276059812023
 
 city_list = ant_colony_optimization(X, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5, opt_2 = True, graph = True)
+
+# Red Point = Initial city
+# Orange Point = Second City
+# The generated coordinates (2D projection) are an aproximation of the inputed distance matrix. Depending on the data, the optimum tour may present crosses due to the 2D projection.
