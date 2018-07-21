@@ -161,4 +161,4 @@ city_list = ant_colony_optimization(X, ants = 5, iterations = 50, alpha = 1, bet
 
 # Red Point = Initial city
 # Orange Point = Second City
-# The generated coordinates (2D projection) are an aproximation of the inputed distance matrix. Depending on the data, the optimum tour may present crosses due to the 2D projection.
+# The generated coordinates (2D projection) are aproximated, depending on the data, the optimum tour may present crosses.
