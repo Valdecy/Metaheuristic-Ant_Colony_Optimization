@@ -155,7 +155,7 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
 
 ######################## Part 1 - Usage ####################################
 
-X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-03.txt', sep = '\t') #17 cities = 1922.33
+X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset.txt', sep = '\t') #17 cities = 1922.33
 
 city_list = ant_colony_optimization(X, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5, opt_2 = True, graph = True)
 
