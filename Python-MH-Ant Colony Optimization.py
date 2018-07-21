@@ -17,7 +17,6 @@ import numpy  as np
 import math
 import copy
 import os
-from sklearn import manifold
 from matplotlib import pyplot as plt 
 
 # Function: Probability Matrix 
@@ -86,8 +85,15 @@ def local_search_2_opt(Xdata, city_list):
 
 # Function: Tour Plot
 def plot_tour_distance_matrix (Xdata, city_list):
-    mds = manifold.MDS(n_components = 2, dissimilarity = "precomputed", random_state = 6)
-    coordinates = (mds.fit(Xdata)).embedding_
+    m = Xdata.copy(deep = True)
+    for i in range(0, Xdata.shape[0]):
+        for j in range(0, Xdata.shape[1]):
+            m.iloc[i,j] = (1/2)*(Xdata.iloc[0,j]**2 + Xdata.iloc[i,0]**2 - Xdata.iloc[i,j]**2)    
+    m = m.values
+    w, u = np.linalg.eig(np.matmul(m.T, m))
+    s = (np.diag(np.sort(w)[::-1]))**(1/2) 
+    coordinates = np.matmul(u, s**(1/2))
+    coordinates = coordinates[:,0:2]
     xy = pd.DataFrame(np.zeros((len(city_list[0]), 2)))
     for i in range(0, len(city_list[0])):
         if (i < len(city_list[0])):
