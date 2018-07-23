@@ -93,7 +93,7 @@ def plot_tour_distance_matrix (Xdata, city_list):
     w, u = np.linalg.eig(np.matmul(m.T, m))
     s = (np.diag(np.sort(w)[::-1]))**(1/2) 
     coordinates = np.matmul(u, s**(1/2))
-    coordinates = coordinates[:,0:2]
+    coordinates = coordinates.real[:,0:2]
     xy = pd.DataFrame(np.zeros((len(city_list[0]), 2)))
     for i in range(0, len(city_list[0])):
         if (i < len(city_list[0])):
