@@ -107,8 +107,42 @@ def plot_tour_distance_matrix (Xdata, city_list):
     plt.plot(xy.iloc[1,0], xy.iloc[1,1], marker = 's', alpha = 1, markersize = 7, color = 'orange')
     return
 
+# Function: Tour Plot
+def plot_tour_coordinates (coordinates, city_list):
+    coordinates = coordinates.values
+    xy = pd.DataFrame(np.zeros((len(city_list[0]), 2)))
+    for i in range(0, len(city_list[0])):
+        if (i < len(city_list[0])):
+            xy.iloc[i, 0] = coordinates[city_list[0][i]-1, 0]
+            xy.iloc[i, 1] = coordinates[city_list[0][i]-1, 1]
+        else:
+            xy.iloc[i, 0] = coordinates[city_list[0][0]-1, 0]
+            xy.iloc[i, 1] = coordinates[city_list[0][0]-1, 1]
+    plt.plot(xy.iloc[:,0], xy.iloc[:,1], marker = 's', alpha = 1, markersize = 7, color = 'black')
+    plt.plot(xy.iloc[0,0], xy.iloc[0,1], marker = 's', alpha = 1, markersize = 7, color = 'red')
+    plt.plot(xy.iloc[1,0], xy.iloc[1,1], marker = 's', alpha = 1, markersize = 7, color = 'orange')
+    return
+
+# Function: Distance Calculations
+def euclidean_distance(x, y):       
+    distance = 0
+    for j in range(0, len(x)):
+        distance = (x.iloc[j] - y.iloc[j])**2 + distance   
+    return distance**(1/2) 
+
+# Function: Build Distance Matrix
+def buid_distance_matrix(coordinates):
+    Xdata = pd.DataFrame(np.zeros((coordinates.shape[0], coordinates.shape[0])))
+    for i in range(0, Xdata.shape[0]):
+        for j in range(0, Xdata.shape[1]):
+            if (i != j):
+                x = coordinates.iloc[i,:]
+                y = coordinates.iloc[j,:]
+                Xdata.iloc[i,j] = euclidean_distance(x, y)        
+    return Xdata
+
 # ACO Function
-def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5, opt_2 = False, graph = False):   
+def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5, opt_2 = False, opt_2_value = 0):   
     h = pd.DataFrame(np.nan, index = Xdata.index, columns = list(Xdata.columns.values))
     distance = Xdata.values.sum()
     best_routes = ["None"]    
@@ -145,20 +179,19 @@ def ant_colony_optimization(Xdata, ants = 5, iterations = 50, alpha = 1, beta = 
         count = count + 1    
     best_routes = best_routes[-1]
     if (opt_2 == True):
-        for i in range(0, 25):
-            print("2-opt Improvement", i + 1, " of ", 25, " solution = ", best_routes)
+        for i in range(0, opt_2_value):
+            print("2-opt Improvement", i + 1, " of ", opt_2_value, " solution = ", best_routes)
             best_routes = local_search_2_opt(Xdata, city_list = best_routes)   
     print(best_routes)
-    if (graph == True):
-        plot_tour_distance_matrix(Xdata, best_routes)
     return  best_routes
 
 ######################## Part 1 - Usage ####################################
 
-X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset.txt', sep = '\t') #17 cities = 1922.33
+X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-01.txt', sep = '\t') #17 cities = 1922.33
+city_list = ant_colony_optimization(X, ants = 17, iterations = 25, alpha = 1, beta = 2, decay = 0.5, opt_2 = True, opt_2_value = 25)
+plot_tour_distance_matrix(X, city_list) # Red Point = Initial city; Orange Point = Second City # The generated coordinates (2D projection) are aproximated, depending on the data, the optimum tour may present crosses.
 
-city_list = ant_colony_optimization(X, ants = 5, iterations = 50, alpha = 1, beta = 2, decay = 0.5, opt_2 = True, graph = True)
-
-# Red Point = Initial city
-# Orange Point = Second City
-# The generated coordinates (2D projection) are aproximated, depending on the data, the optimum tour may present crosses.
+Y = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-02.txt', sep = '\t') # Berlin 52 = 7542
+X = buid_distance_matrix(Y)
+city_list = ant_colony_optimization(X, ants = 5, iterations = 2, alpha = 9, beta = 12, decay = 0.5, opt_2 = True, opt_2_value = 100)
+plot_tour_coordinates (Y, city_list) # Red Point = Initial city; Orange Point = Second City
