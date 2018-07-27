@@ -191,7 +191,7 @@ X = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-01.txt', sep = '\t') 
 city_list = ant_colony_optimization(X, ants = 17, iterations = 25, alpha = 1, beta = 2, decay = 0.5, opt_2 = True, opt_2_value = 25)
 plot_tour_distance_matrix(X, city_list) # Red Point = Initial city; Orange Point = Second City # The generated coordinates (2D projection) are aproximated, depending on the data, the optimum tour may present crosses.
 
-Y = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-02.txt', sep = '\t') # Berlin 52 = 7542
+Y = pd.read_csv('Python-MH-Ant Colony Optimization-Dataset-02.txt', sep = '\t') # Berlin 52 = 7544.37
 X = buid_distance_matrix(Y)
 city_list = ant_colony_optimization(X, ants = 52, iterations = 5, alpha = 9, beta = 12, decay = 0.5, opt_2 = True, opt_2_value = 100)
 plot_tour_coordinates (Y, city_list) # Red Point = Initial city; Orange Point = Second City
