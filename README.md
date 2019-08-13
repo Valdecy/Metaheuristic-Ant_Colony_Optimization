@@ -19,8 +19,6 @@ Ant Colony Optimization Function for TSP problems. The function returns: 1) A li
 
 * plot_tour_coordinates (HELPER FUNCTION) = Plots the 2-opt optimal solution (Red Point = Initial city; Orange Point = Second City).
 
-![alt text](https://github.com/Valdecy/Metaheuristic-Ant_Colony_Optimization/blob/master/Python-MH-Ant%20Colony%20Optimization.gif)
-
 <p align="center"> 
 <img src="https://github.com/Valdecy/Metaheuristic-Ant_Colony_Optimization/blob/master/Python-MH-Ant%20Colony%20Optimization.gif">
 </p>
